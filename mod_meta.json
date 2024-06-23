@@ -1,0 +1,9 @@
+{
+	"Author": "MegaPiggy",
+	"Name": "Mo' Money",
+	"ModGUID": "megapiggy.momoney",
+	"Entrypoint": "Mo_Money.Main/Initialize",
+	"Version": "1.0",
+	"ModAssembly": "Mo'Money.dll",
+	"MinWinchVersion": "alpha-1.4"
+}
