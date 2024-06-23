@@ -5,16 +5,27 @@ using BepInEx;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Ramune.Mo_Money
+namespace Mo_Money
 {
-	// Token: 0x02000003 RID: 3
 	public static class Initializer
 	{
-		// Token: 0x06000004 RID: 4 RVA: 0x0000209C File Offset: 0x0000029C
+		public static string FolderPath = Path.Combine(Paths.ConfigPath, "Mo'Money");
+
+		public static string FishJsonPath = Path.Combine(Paths.ConfigPath, "Mo'Money", "FishMultipliers.json");
+
+		public static string TrinketJsonPath = Path.Combine(Paths.ConfigPath, "Mo'Money", "TrinketMultipliers.json");
+
+		public static Dictionary<string, float> TrinketMultipliers = new Dictionary<string, float>();
+
+		public static Dictionary<string, float> FishMultipliers = new Dictionary<string, float>();
+
+		public static JObject TrinketJson;
+
+		public static JObject FishJson;
+
 		public static void Init()
 		{
-			bool flag = !Directory.Exists(Initializer.FolderPath);
-			if (flag)
+			if (!Directory.Exists(Initializer.FolderPath))
 			{
 				Directory.CreateDirectory(Initializer.FolderPath);
 			}
@@ -22,11 +33,9 @@ namespace Ramune.Mo_Money
 			Initializer.FishMultipliers = Initializer.WriteJsonFile(Initializer.FishJsonPath, Initializer.FishDictionary);
 		}
 
-		// Token: 0x06000005 RID: 5 RVA: 0x000020F0 File Offset: 0x000002F0
 		public static Dictionary<string, float> WriteJsonFile(string filepath, Dictionary<string, string> dictionary)
 		{
-			bool flag = !File.Exists(filepath);
-			if (flag)
+			if (!File.Exists(filepath))
 			{
 				JObject jobject = new JObject();
 				foreach (KeyValuePair<string, string> keyValuePair in dictionary)
@@ -38,28 +47,6 @@ namespace Ramune.Mo_Money
 			return JsonConvert.DeserializeObject<Dictionary<string, float>>(File.ReadAllText(filepath));
 		}
 
-		// Token: 0x04000006 RID: 6
-		public static string FolderPath = Path.Combine(Paths.ConfigPath, "Mo'Money");
-
-		// Token: 0x04000007 RID: 7
-		public static string FishJsonPath = Path.Combine(Paths.ConfigPath, "Mo'Money", "FishMultipliers.json");
-
-		// Token: 0x04000008 RID: 8
-		public static string TrinketJsonPath = Path.Combine(Paths.ConfigPath, "Mo'Money", "TrinketMultipliers.json");
-
-		// Token: 0x04000009 RID: 9
-		public static Dictionary<string, float> TrinketMultipliers = new Dictionary<string, float>();
-
-		// Token: 0x0400000A RID: 10
-		public static Dictionary<string, float> FishMultipliers = new Dictionary<string, float>();
-
-		// Token: 0x0400000B RID: 11
-		public static JObject TrinketJson;
-
-		// Token: 0x0400000C RID: 12
-		public static JObject FishJson;
-
-		// Token: 0x0400000D RID: 13
 		public static Dictionary<string, string> TrinketDictionary = new Dictionary<string, string>
 		{
 			{ "relic1", "Ornate Key" },
@@ -93,7 +80,6 @@ namespace Ramune.Mo_Money
 			{ "silver-trinket", "Silver Trinket" }
 		};
 
-		// Token: 0x0400000E RID: 14
 		public static Dictionary<string, string> FishDictionary = new Dictionary<string, string>
 		{
 			{ "anchovy-ab-1", "Anchovy King" },
